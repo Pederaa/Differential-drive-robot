@@ -44,5 +44,25 @@
 ],
 "features": {
 	"ghcr.io/devcontainers/features/github-cli:1": {}
+},
+
+"customizations": {
+	"vscode": {
+		"settings": {},
+		"extensions": [
+			"mhutchie.git-graph",
+			// "eamodio.gitlens",
+			"donjayamanne.githistory",
+
+			"smilerobotics.urdf",
+			"dotjoshjohnson.xml",
+			"redhat.vscode-xml",
+			"ms-python.vscode-pylance",
+			"ms-python.python",
+			"ms-vscode.cpptools",
+			"ms-vscode.cmake-tools"
+			// "ms-vscode.cpptools-extension-pack"
+			]
+	}
 }
 }
