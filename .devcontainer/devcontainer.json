@@ -1,5 +1,5 @@
 {
-  "name": "jazzy desktop-full",
+  "name": "Differental drive robot tutorial",
   "dockerFile": "Dockerfile",
   "runArgs": [
     "--privileged",
