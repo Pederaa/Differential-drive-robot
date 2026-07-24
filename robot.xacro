@@ -49,5 +49,96 @@
         </inertial>    
     </xacro:macro>
 
+    <xacro:macro>
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="${m3}"/>
+            <inertia ixx="${I_caster}" ixy="0.0" ixz="0.0" iyy="${I_caster}" iyz="0.0" izz="${I_caster}"/>
+        </inertial>
+    </xacro:macro>
+
+    <xacro:include filename="$(find mobile_robot)/model/robot.gazebo"/>
+
+
+    <link name="base_footprint"></link>
+    <joint name="body_link_joint" type="fixed">
+        <parent link="base_bootprint"/>
+        <child link="body_link"/>        
+    </joint>
+
+
+    <link name="body_link">
+        <visual>
+            <geometry>
+                <box size="${a} ${b} ${c}"/>
+            </geometry>
+            <origin xyz="0.0 0.0 ${s1}" rpy="0 0 0"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 ${s1}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${a} ${b} ${c}"/>
+            </geometry>
+        </collision>
+
+        <xacro:inertial_body/>
+    </link>
+
+
+    <joint name="wheel1_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="wheel1_link"/>
+        <origin xyz="${s2} ${-s4} ${r}"/>
+
+        <axis xyz="0 1 0"/>
+        <limit effort="50000.0" velocity="10.0"/>
+        <dynamics damping="1.0" friction="1.0"/>
+    </joint>
+
+    <link name="wheel1_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${r}" length="${d}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/> 
+            <geometry>
+               <cylinder radius="${r}" length="${d}"/>
+            </geometry>
+        </collision>
+
+        <xacro:inertail_wheel />
+    </link>
+
+    <joint name="wheel2_joint" type="continuous">
+        <parent link="body_link"/>
+        <child link="wheel2_link"/>
+        <origin xyz="${-s2} ${s4} ${r}"/>
+
+        <axis xyz="0 1 0"/>
+        <limit effort="50000.0" velocity="10.0"/>
+        <dynamics damping="1.0" friction="1.0"/>
+    </joint>
+
+     <link name="wheel2_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${r}" length="${d}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="1.570795 0.0 0.0"/> 
+            <geometry>
+               <cylinder radius="${r}" length="${d}"/>
+            </geometry>
+        </collision>
+
+        <xacro:inertail_wheel />
+    </link>
+
 
 </robot>
