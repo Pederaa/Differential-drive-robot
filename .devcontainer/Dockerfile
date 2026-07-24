@@ -25,7 +25,14 @@ RUN sudo usermod --append --groups video $USERNAME
 RUN sudo apt update && sudo apt upgrade -y
 
 # Install Git
-RUN sudo apt install -y git
+RUN sudo apt install -y \
+    git \
+    ros-${ROS_DISTRO}-ros-gz \
+    gedit \
+    ros-${ROS_DISTRO}-joint-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher-gui \
+    ros-${ROS_DISTRO}-xacro \
+    ros-${ROS_DISTRO}-teleop-twist-keyboard
 
 # Rosdep update
 RUN rosdep update
