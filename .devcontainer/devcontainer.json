@@ -7,8 +7,15 @@
   ],
   "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind",
   "workspaceFolder": "/${localWorkspaceFolderBasename}",
+  "containerEnv": {
+		/* Uncomment to allow the container to access the X server on the host e.g. to run Rviz and other GUI tools*/
+    	"DISPLAY": "${localEnv:DISPLAY}",
+		"LIBGL_ALWAYS_SOFTWARE": "1",
+		"SSH_AUTH_SOCK": "/ssh-agent"
+    },
   "mounts": [
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.bash_history,target=/home/vscode/.bash_history,type=bind"
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.bash_history,target=/home/vscode/.bash_history,type=bind",
+    "source=${localEnv:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
 ],
 "features": {
 	"ghcr.io/devcontainers/features/github-cli:1": {}
