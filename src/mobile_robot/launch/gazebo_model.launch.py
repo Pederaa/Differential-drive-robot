@@ -7,7 +7,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 import xacro
 
-def generate_launch_descripton():
+def generate_launch_description():
     robotXacroName='differential_drive_robot'
     namePackage='mobile_robot'
     modelFileRelativePath = 'model/robot.xacro'
@@ -49,7 +49,7 @@ def generate_launch_descripton():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            '--ros_args',
+            '--ros-args',
             '-p',
             f'config_file:={bridge_params}',
         ],
