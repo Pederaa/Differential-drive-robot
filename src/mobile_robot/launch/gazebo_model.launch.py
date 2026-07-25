@@ -11,13 +11,21 @@ def generate_launch_description():
     robotXacroName='differential_drive_robot'
     namePackage='mobile_robot'
     modelFileRelativePath = 'model/robot.xacro'
+    rvizConfigPath =  'rviz/config.rviz'
+
     pathModelfile = os.path.join(get_package_share_directory(namePackage), modelFileRelativePath)
     robotDescription = xacro.process_file(pathModelfile).toxml()
 
 
     gazebo_rosPackageLaunch = PythonLaunchDescriptionSource(os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py'))
 
-    gazeboLaunch = IncludeLaunchDescription(gazebo_rosPackageLaunch, launch_arguments={'gz_args': ['-r -v -v4 empty.sdf'], 'on_exit_shutdown': 'True'}.items())
+    gazeboLaunch = IncludeLaunchDescription(
+        gazebo_rosPackageLaunch, 
+        launch_arguments = {
+            'gz_args': ['-r -v -v4 empty.sdf'], 
+             'on_exit_shutdown': 'True'
+        }.items()
+    )
 
     # Gazebo node
     spawnModelNodeGazebo = Node(
@@ -56,6 +64,14 @@ def generate_launch_description():
         output='screen',
     )
 
+    rvizWindow = Node(
+        package='rviz2',
+        executable='rviz2',
+        arguments=['-d', os.path.join(
+            get_package_share_directory(namePackage), rvizConfigPath)
+            ],
+        output='screen'
+    )
 
 
     # Create launch description
@@ -68,6 +84,9 @@ def generate_launch_description():
     LaunchDescriptionObject.add_action(spawnModelNodeGazebo)
     LaunchDescriptionObject.add_action(nodeRobotStatePublisher)
     LaunchDescriptionObject.add_action(start_gazebo_ros_bridge_cmd)
+
+    # Add debug tools
+    LaunchDescriptionObject.add_action(rvizWindow)
 
     return LaunchDescriptionObject
 
